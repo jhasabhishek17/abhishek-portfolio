@@ -1,16 +1,29 @@
 const axios = require('axios')
 
-const GITHUB_USERNAME = process.env.GITHUB_USERNAME
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN
+function getGitHubUsername() {
+  const username = process.env.GITHUB_USERNAME
+  if (!username || username === 'your-github-username') {
+    return 'jhasabhishek17'
+  }
+  return username
+}
 
-const githubAPI = axios.create({
-  baseURL: 'https://api.github.com',
-  headers: {
-    Authorization: `Bearer ${GITHUB_TOKEN}`,
+function getGitHubClient() {
+  const token = process.env.GITHUB_TOKEN
+  const headers = {
     Accept: 'application/vnd.github.v3+json',
     'X-GitHub-Api-Version': '2022-11-28',
-  },
-})
+    'User-Agent': 'Portfolio-Backend',
+  }
+  if (token && token.trim() !== '' && !token.includes('your_token')) {
+    headers.Authorization = `Bearer ${token.trim()}`
+  }
+  return axios.create({
+    baseURL: 'https://api.github.com',
+    headers,
+    timeout: 10000,
+  })
+}
 
 // Simple in-memory cache (resets on server restart)
 const cache = new Map()
@@ -32,7 +45,9 @@ exports.getProfile = async (req, res) => {
     const cached = getCache('profile')
     if (cached) return res.json(cached)
 
-    const { data } = await githubAPI.get(`/users/${GITHUB_USERNAME}`)
+    const username = getGitHubUsername()
+    const githubAPI = getGitHubClient()
+    const { data } = await githubAPI.get(`/users/${username}`)
     const profile = {
       login: data.login,
       name: data.name,
@@ -61,7 +76,9 @@ exports.getRepos = async (req, res) => {
     const cached = getCache('repos')
     if (cached) return res.json(cached)
 
-    const { data } = await githubAPI.get(`/users/${GITHUB_USERNAME}/repos`, {
+    const username = getGitHubUsername()
+    const githubAPI = getGitHubClient()
+    const { data } = await githubAPI.get(`/users/${username}/repos`, {
       params: {
         sort: 'updated',
         per_page: 30,
@@ -99,7 +116,9 @@ exports.getStats = async (req, res) => {
     const cached = getCache('stats')
     if (cached) return res.json(cached)
 
-    const { data: repos } = await githubAPI.get(`/users/${GITHUB_USERNAME}/repos`, {
+    const username = getGitHubUsername()
+    const githubAPI = getGitHubClient()
+    const { data: repos } = await githubAPI.get(`/users/${username}/repos`, {
       params: { per_page: 100, type: 'owner' },
     })
 
@@ -110,7 +129,7 @@ exports.getStats = async (req, res) => {
     let totalCommits = 0
     try {
       const { data: searchData } = await githubAPI.get('/search/commits', {
-        params: { q: `author:${GITHUB_USERNAME}`, per_page: 1 },
+        params: { q: `author:${username}`, per_page: 1 },
         headers: { Accept: 'application/vnd.github.cloak-preview+json' },
       })
       totalCommits = searchData.total_count || 0

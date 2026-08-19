@@ -1,3 +1,4 @@
+'use client'
 import { skills } from '@/lib/portfolio-data'
 
 export default function Skills() {

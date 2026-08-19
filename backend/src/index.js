@@ -6,9 +6,10 @@ const helmet = require('helmet')
 const githubRoutes = require('./routes/github')
 const contactRoutes = require('./routes/contact')
 const leetcodeRoutes = require('./routes/leetcode')
+const projectsRoutes = require('./routes/projects')
 
 const app = express()
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5001
 
 // ── Security & Middleware ─────────────────────────────────────
 app.use(helmet())
@@ -26,6 +27,7 @@ app.use(express.json({ limit: '10kb' }))
 app.use('/api/github', githubRoutes)
 app.use('/api/contact', contactRoutes)
 app.use('/api/leetcode', leetcodeRoutes)
+app.use('/api/projects', projectsRoutes)
 
 // ── Health check ──────────────────────────────────────────────
 app.get('/health', (req, res) => {

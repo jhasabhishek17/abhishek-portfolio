@@ -1,3 +1,4 @@
+'use client'
 import { certifications } from '@/lib/portfolio-data'
 import { ExternalLink } from 'lucide-react'
 

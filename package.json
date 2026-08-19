@@ -1,0 +1,12 @@
+{
+  "name": "abhishek-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-stack developer portfolio with live GitHub sync and contact mailer",
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "install:all": "cd backend && npm install && cd ../frontend && npm install"
+  }
+}

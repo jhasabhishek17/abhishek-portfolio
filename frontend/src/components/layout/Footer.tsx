@@ -1,3 +1,4 @@
+'use client'
 import { personalInfo } from '@/lib/portfolio-data'
 import { Github, Linkedin, Twitter, Heart } from 'lucide-react'
 

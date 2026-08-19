@@ -1,3 +1,4 @@
+'use client'
 import { achievements } from '@/lib/portfolio-data'
 
 export default function Achievements() {

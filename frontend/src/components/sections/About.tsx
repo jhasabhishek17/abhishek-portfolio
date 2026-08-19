@@ -1,3 +1,4 @@
+'use client'
 import { GraduationCap, MapPin, Calendar, Cpu, Mail, Award } from 'lucide-react'
 import { personalInfo } from '@/lib/portfolio-data'
 
