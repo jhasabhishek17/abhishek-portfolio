@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-void: #050507;
+  --bg-obsidian: #0a0a0e;
+  --bg-graphite: #13141a;
+  --bg-gunmetal: #1e2029;
+  
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-hover: rgba(255, 255, 255, 0.16);
+  --border-active: rgba(255, 255, 255, 0.32);
+  
+  --text-pure: #ffffff;
+  --text-silver: #e2e4ea;
+  --text-muted: #8e92a0;
+  --text-dim: #545766;
+  
+  --highlight-metallic: rgba(255, 255, 255, 0.95);
+  --glass-bg: rgba(10, 10, 14, 0.72);
+}
+
+/* Base resets & typography */
+html {
+  background-color: var(--bg-void);
+  color: var(--text-silver);
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg-void);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Ensure anchor jumps do not get hidden under sticky navbar */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* Lenis Recommended CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Custom Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-void);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* Architectural Glassmorphic Panels */
+.kinetic-card {
+  background: linear-gradient(135deg, rgba(20, 21, 28, 0.6) 0%, rgba(10, 10, 14, 0.75) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  transition: border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kinetic-card:hover {
+  border-color: var(--border-hover);
+}
+
+.kinetic-nav {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Subtle Metallic Horizon Glow */
+.metallic-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.04) 0%, transparent 65%);
+}
+
+/* Underline Animation */
+.silver-underline {
+  position: relative;
+}
+.silver-underline::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -3px;
+  left: 0;
+  background-color: var(--highlight-metallic);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.silver-underline:hover::after {
+  width: 100%;
+}
+
+/* Project Creative Animation Keyframes */
+@keyframes scanline-sweep {
+  0% { transform: translateX(-100%); opacity: 0; }
+  15% { opacity: 0.9; }
+  85% { opacity: 0.9; }
+  100% { transform: translateX(1000%); opacity: 0; }
+}
+
+@keyframes snake-crawl {
+  0% { transform: translateX(-60px); }
+  100% { transform: translateX(450px); }
+}
+
+@keyframes mist-drift {
+  0% { transform: translate(-10%, -10%); opacity: 0.2; }
+  50% { opacity: 0.45; }
+  100% { transform: translate(10%, 10%); opacity: 0.2; }
+}
+
+@keyframes ink-draw {
+  0% { transform: scaleX(0); transform-origin: left; }
+  100% { transform: scaleX(1); transform-origin: left; }
+}
+
+.animate-scanline {
+  animation: scanline-sweep 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-snake {
+  animation: snake-crawl 4.5s linear infinite;
+}
+
+.animate-mist {
+  animation: mist-drift 6s ease-in-out infinite alternate;
+}
+
+.animate-ink {
+  animation: ink-draw 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Horizontal Reel Scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  height: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 9999px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Accessibility Focus Visible */
+:focus-visible {
+  outline: 1.5px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 3px;
+}
+
+/* Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
